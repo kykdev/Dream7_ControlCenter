@@ -29,9 +29,9 @@ android {
         }
     }
     compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "com.wubydax.romcontrol.v2"
+        applicationId "com.kykint.dream7.controlcenter"
         minSdkVersion 21
         //noinspection OldTargetApi
         targetSdkVersion 22
@@ -57,7 +57,7 @@ android {
 }
 
 task installAndLaunchRelease(type: Exec, dependsOn: 'installRelease') {
-    commandLine 'adb', 'shell', 'am', 'start', '-n', 'com.wubydax.romcontrol.v2/.MainActivity'
+    commandLine 'adb', 'shell', 'am', 'start', '-n', 'com.kykint.dream7.controlcenter/.MainActivity'
 }
 
 task pushToDevice(type: Exec, dependsOn: 'assembleRelease') {

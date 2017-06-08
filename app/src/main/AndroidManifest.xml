@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.wubydax.romcontrol.v2">
+          package="com.kykint.dream7.controlcenter">
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.RECOVERY"/>
 
     <application
-        android:name=".MyApp"
+        android:name="com.kykint.dream7.controlcenter.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,7 +25,7 @@
         <meta-data android:name="com.samsung.android.sdk.multiwindow.penwindow.enable" android:value="true"/>
         <meta-data android:name="com.sec.android.support.multiwindow" android:value="true" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.kykint.dream7.controlcenter.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -35,12 +35,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
-            android:parentActivityName=".MainActivity">
+            android:name="com.kykint.dream7.controlcenter.AboutActivity"
+            android:parentActivityName="com.kykint.dream7.controlcenter.MainActivity">
         </activity>
 
         <service
-            android:name=".utils.BackupRestoreIntentService"
+            android:name="com.kykint.dream7.controlcenter.utils.BackupRestoreIntentService"
             android:exported="false">
         </service>
     </application>
