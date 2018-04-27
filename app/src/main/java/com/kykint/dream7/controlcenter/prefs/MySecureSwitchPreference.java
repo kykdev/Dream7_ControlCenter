@@ -3,17 +3,19 @@ package com.kykint.dream7.controlcenter.prefs;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.preference.EditTextPreference;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.kykint.dream7.controlcenter.R;
 import com.kykint.dream7.controlcenter.utils.Utils;
 
-/*      Created by Roberto Mariani and Anna Berkovitch, 08/06/15
+import java.util.ArrayList;
+
+/*      Created by Roberto Mariani and Anna Berkovitch, 13/06/2016
         This program is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
         the Free Software Foundation, either version 3 of the License, or
@@ -26,14 +28,16 @@ import com.kykint.dream7.controlcenter.utils.Utils;
 
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
-public class MyEditTextPreference extends EditTextPreference implements Preference.OnPreferenceChangeListener {
-    private final boolean mIsSilent;
-    private final String mPackageToKill;
-    private final boolean mIsRebootRequired;
+
+public class MySecureSwitchPreference extends SwitchPreference implements Preference.OnPreferenceChangeListener,
+        ReverseDependencyMonitor {
     private ContentResolver mContentResolver;
+    private String mPackageToKill;
+    private boolean mIsSilent, mIsRebootRequired;
+    private ArrayList<Preference> mReverseDependents;
     private String mReverseDependencyKey;
 
-    public MyEditTextPreference(Context context, AttributeSet attrs) {
+    public MySecureSwitchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Preference);
         mPackageToKill = typedArray.getString(R.styleable.Preference_packageNameToKill);
@@ -58,59 +62,28 @@ public class MyEditTextPreference extends EditTextPreference implements Preferen
         }
     }
 
-
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        super.onSetInitialValue(restoreValue, defaultValue);
-        String value = "";
-
-        if (!restoreValue && defaultValue != null) {
-            String dbValue = Settings.System.getString(mContentResolver, getKey());
-            if (dbValue != null && !dbValue.equals(defaultValue)) {
-                value = dbValue;
-            } else if (dbValue == null) {
-                value = (String) defaultValue;
-                Settings.System.putString(mContentResolver, getKey(), (String) defaultValue);
+        int dbInt = 0;
+        try {
+            dbInt = Settings.Secure.getInt(mContentResolver, getKey());
+        } catch (Settings.SettingNotFoundException e) {
+            if (defaultValue != null) {
+                dbInt = (boolean) defaultValue ? 1 : 0;
+                Settings.Secure.putInt(mContentResolver, getKey(), dbInt);
             }
-        } else {
-            value = getPersistedString(null);
         }
-        setSummary(value);
+        persistBoolean(dbInt != 0);
+        setChecked(dbInt != 0);
 
-    }
-
-    @Override
-    public String getText() {
-        String value = Settings.System.getString(mContentResolver, getKey());
-        String persistedString = getPersistedString(null);
-        if (value != null) {
-            if (value.equals(persistedString)) {
-                return persistedString;
-            } else {
-                persistString(value);
-                return value;
-            }
-        } else {
-            return persistedString;
-        }
-    }
-
-    @Override
-    protected void onAttachedToHierarchy(PreferenceManager preferenceManager) {
-        super.onAttachedToHierarchy(preferenceManager);
-        String value = Settings.System.getString(mContentResolver, getKey());
-        String persistedString = getPersistedString(null);
-        if (value != null && !value.equals(persistedString)) {
-            persistString(value);
-            setSummary(value);
-        }
     }
 
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Settings.System.putString(mContentResolver, getKey(), (String) newValue);
-        setSummary((String) newValue);
+        boolean isTrue = (boolean) newValue;
+        int dbInt = isTrue ? 1 : 0;
+        Settings.Secure.putInt(mContentResolver, getKey(), dbInt);
         if (mIsRebootRequired) {
             Utils.showRebootRequiredDialog(getContext());
         } else {
@@ -124,6 +97,27 @@ public class MyEditTextPreference extends EditTextPreference implements Preferen
                 }
             }
         }
+
+        if (mReverseDependents != null && mReverseDependents.size() > 0) {
+            for (Preference pref : mReverseDependents) {
+                pref.setEnabled(!isTrue);
+            }
+        }
+
         return true;
+    }
+
+
+    @Override
+    public void registerReverseDependencyPreference(Preference preference) {
+        if (mReverseDependents == null) {
+            mReverseDependents = new ArrayList<>();
+        }
+        if (preference != null && !mReverseDependents.contains(preference)) {
+            mReverseDependents.add(preference);
+            preference.setEnabled(!isChecked());
+            Log.d("daxgirl", "registerReverseDependencyPreference preference is " + preference.getClass().getSimpleName());
+        }
+
     }
 }

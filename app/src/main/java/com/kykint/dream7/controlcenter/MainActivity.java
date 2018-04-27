@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
                 case R.id.themes:
                     mFragmentManager.beginTransaction().add(MyDialogFragment.newInstance(Constants.THEME_DIALOG_REQUEST_CODE), "theme_dialog").commit();
                     break;
-                case R.id.changeLog:
+                /*case R.id.changeLog:
                     mFragmentManager.beginTransaction().add(MyDialogFragment.newInstance(Constants.CHANGELOG_DIALOG_REQUEST_CODE), "changelog").commit();
                     break;
                 case R.id.about_us:
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case R.id.backup_restore:
                     mFragmentManager.beginTransaction().add(MyDialogFragment.newInstance(Constants.BACKUP_OR_RESTORE_DIALOG_REQUEST_CODE), "backup_restore").commit();
-                    break;
+                    break;*/
             }
 
         }

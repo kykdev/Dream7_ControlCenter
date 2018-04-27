@@ -21,7 +21,7 @@
                 android:id="@+id/themes"
                 android:icon="@drawable/ic_theme"
                 android:title="@string/set_theme"/>
-            <item
+            <!--item
                 android:id="@+id/backup_restore"
                 android:icon="@drawable/ic_backup_restore"
                 android:title="@string/backup_and_restore"/>
@@ -32,7 +32,7 @@
             <item
                 android:id="@+id/about_us"
                 android:icon="@drawable/ic_info"
-                android:title="@string/about_us"/>
+                android:title="@string/about_us"/-->
         </menu>
     </item>
 

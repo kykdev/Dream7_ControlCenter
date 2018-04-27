@@ -1,0 +1,60 @@
+<!--/*      Created by Roberto Mariani and Anna Berkovitch, 2015-2016-->
+<!--This program is free software: you can redistribute it and/or modify-->
+<!--it under the terms of the GNU General Public License as published by-->
+<!--the Free Software Foundation, either version 3 of the License, or-->
+<!--(at your option) any later version.-->
+
+<!--This program is distributed in the hope that it will be useful,-->
+<!--but WITHOUT ANY WARRANTY; without even the implied warranty of-->
+<!--MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the-->
+<!--GNU General Public License for more details.-->
+
+<!--You should have received a copy of the GNU General Public License-->
+<!--along with this program.  If not, see <http://www.gnu.org/licenses/>.*/-->
+<resources>
+    <string name="app_name">Dream7 설정</string>
+    <string name="root_progress_dialog_title">루트 권한 획득 중</string>
+    <string name="root_progress_dialog_message">잠시 기다려주세요…</string>
+    <string name="no_su_dialog_title">루트 권한 없음</string>
+    <string name="no_su_dialog_message">루트 권한을 획득하지 못했습니다.\n\n루트 권한이 없어도 이 앱의 대부분의 기능을 사용할 수 있지만, 시스템 UI 자동 재시작 기능이 작동하지 않아 수동으로 디바이스를 재시작하셔야 합니다.</string>
+    <string name="no_su_dialog_dismiss_button_text">확인</string>
+    <string name="reboot_menu">재시작 메뉴</string>
+    <string name="reboot_device_text">디바이스 재시작</string>
+    <string name="reboot_recovery_text">리커버리 모드로 재시작</string>
+    <string name="reboot_ui_text">시스템 UI 재시작</string>
+    <string name="app_reboot_required_dialog_title">앱 재시작 필요</string>
+    <string name="app_reboot_required_dialog_message">이 설정을 적용하려면 %1$s 을(를) 재시작해야 합니다. 확인 버튼을 누르면 재시작합니다.\n\n루트 권한이 없으면 수동으로 디바이스를 재시작하셔야 합니다.</string>
+    <string name="theme_dialog_title">테마 선택</string>
+    <string name="systemui_prefs">Dream7 설정</string>
+    <string name="more_options">기타 설정</string>
+    <string name="set_theme">테마 설정</string>
+    <string name="pref_show_clock_seconds">시계에 초 표시</string>
+    <string name="pref_show_clock_seconds_disabled">시계에 시와 분만 표시됩니다.</string>
+    <string name="pref_show_clock_seconds_enabled">"시계에 초도 표시됩니다.
+24시간 형식 시계와 함께 사용할 시 일부 언어에서 정상적으로 표시되지 않을 수 있습니다."</string>
+    <string name="pref_show_operator_logo">상태표시줄에 통신사 로고 표시</string>
+    <string name="pref_show_operator_logo_disabled">"상태표시줄에 통신사 로고가 표시되지 않습니다.
+(시스템 UI 재시작 필요)"</string>
+    <string name="pref_show_operator_logo_enabled">"상태표시줄의 좌측에 통신사 로고가 표시됩니다.
+(시스템 UI 재시작 필요)"</string>
+    <string name="pref_show_qs_data_usage">빠른설정 패널에 데이터 사용량 표시</string>
+    <string name="pref_show_qs_data_usage_disabled">"빠른설정 패널에 데이터 사용량이 표시되지 않습니다.
+(시스템 UI 재시작 필요)"</string>
+    <string name="pref_show_qs_data_usage_enabled">"빠른설정 패널의 하단에 데이터 사용량이 표시됩니다.
+(시스템 UI 재시작 필요)"</string>
+    <string name="pref_show_advanced_reboot_menu">고급 전원 메뉴 옵션 표시</string>
+    <string name="pref_show_advanced_reboot_menu_disabled">전원 메뉴에 기본 옵션만 표시됩니다.</string>
+    <string name="pref_show_advanced_reboot_menu_enabled">전원 메뉴에 리커버리 및 다운로드 모드로 재시작할 수 있는 옵션이 표시됩니다.</string>
+    <string name="pref_wake_on_finger">화면이 꺼져있을 때 지문을 사용하여 켜기</string>
+    <string name="pref_wake_on_finger_disabled">화면이 꺼져있을 때 디바이스가 지문에 반응하지 않습니다.</string>
+    <string name="pref_wake_on_finger_enabled">화면이 꺼져있을 때 올바른 지문이 인식되면 바로 잠금이 해제됩니다. 이 기능을 사용하기 위해선 화면 잠금 방식이 지문으로 설정되어 있어야 하며, 버그로 인해 이 기능은 충전기가 연결되어 있지 않으면 화면이 꺼진 후 5–10분 동안만 작동합니다.</string>
+    <string name="pref_fingerprint_after_reboot">재부팅 후에 지문으로 잠금 해제 허용</string>
+    <string name="pref_fingerprint_after_reboot_disabled">재부팅 후 최초 잠금 해제 시 지문을 사용할 수 없습니다.</string>
+    <string name="pref_fingerprint_after_reboot_enabled">재부팅 후 최초 잠금 해제 시 지문을 사용할 수 있습니다. 지문을 사용하지 말라는 경고 문구가 표시되어도 무시하세요.</string>
+    <string name="pref_qs_panel_tile_rows">빠른설정 패널 타일 배열</string>
+    <string name="pref_qs_panel_tile_rows_unit">" 줄"</string>
+    <string name="pref_statusbar_side_padding">상태표시줄 양옆 여백 (S7 기본값: 0, S8 기본값: 16)</string>
+    <string name="dream7_romcontrol">Dream7 설정</string>
+    <string name="light_theme">밝은 테마</string>
+    <string name="dark_theme">어두운 테마</string>
+</resources>

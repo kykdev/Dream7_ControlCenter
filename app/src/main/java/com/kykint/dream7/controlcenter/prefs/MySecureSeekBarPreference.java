@@ -33,8 +33,8 @@ import java.util.Locale;
         You should have received a copy of the GNU General Public License
         along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-public class MySeekBarPreference extends Preference implements SeekBar.OnSeekBarChangeListener {
-    private static final String LOG_TAG = MySeekBarPreference.class.getSimpleName();
+public class MySecureSeekBarPreference extends Preference implements SeekBar.OnSeekBarChangeListener {
+    private static final String LOG_TAG = MySecureSeekBarPreference.class.getSimpleName();
     private final String mPackageToKill;
     private final boolean mIsSilent;
     private final boolean mIsRebootRequired;
@@ -45,19 +45,19 @@ public class MySeekBarPreference extends Preference implements SeekBar.OnSeekBar
     private String mReverseDependencyKey;
 
 
-    public MySeekBarPreference(Context context, AttributeSet attrs) {
+    public MySecureSeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContentResolver = context.getContentResolver();
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MySeekBarPreference);
-        mMaxValue = typedArray.getInt(R.styleable.MySeekBarPreference_maxValue, 100);
-        mMinValue = typedArray.getInt(R.styleable.MySeekBarPreference_minValue, 0);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MySecureSeekBarPreference);
+        mMaxValue = typedArray.getInt(R.styleable.MySecureSeekBarPreference_maxSecureValue, 100);
+        mMinValue = typedArray.getInt(R.styleable.MySecureSeekBarPreference_minSecureValue, 0);
         TypedArray generalTypedArray = context.obtainStyledAttributes(attrs, R.styleable.Preference);
         mIsRebootRequired = generalTypedArray.getBoolean(R.styleable.Preference_rebootDevice, false);
         mPackageToKill = generalTypedArray.getString(R.styleable.Preference_packageNameToKill);
         mIsSilent = generalTypedArray.getBoolean(R.styleable.Preference_isSilent, true);
         mReverseDependencyKey = generalTypedArray.getString(R.styleable.Preference_reverseDependency);
         mDefaultValue = mMaxValue / 2;
-        mUnitValue = typedArray.getString(R.styleable.MySeekBarPreference_unitsValue);
+        mUnitValue = typedArray.getString(R.styleable.MySecureSeekBarPreference_unitsSecureValue);
         if (mUnitValue == null) {
             mUnitValue = "";
         }
@@ -88,10 +88,10 @@ public class MySeekBarPreference extends Preference implements SeekBar.OnSeekBar
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         int value;
         try {
-            value = Settings.System.getInt(mContentResolver, getKey());
+            value = Settings.Secure.getInt(mContentResolver, getKey());
         } catch (Settings.SettingNotFoundException e) {
             value = !restorePersistedValue && defaultValue != null ? (int) defaultValue : getPersistedInt(mDefaultValue);
-            Settings.System.putInt(getContext().getContentResolver(), getKey(), value);
+            Settings.Secure.putInt(getContext().getContentResolver(), getKey(), value);
         }
         persistInt(value);
     }
@@ -139,7 +139,7 @@ public class MySeekBarPreference extends Preference implements SeekBar.OnSeekBar
     }
 
     private void onPreferenceChange(int newValue) {
-        Settings.System.putInt(mContentResolver, getKey(), newValue);
+        Settings.Secure.putInt(mContentResolver, getKey(), newValue);
         Log.d(LOG_TAG, "onPreferenceChange is called and reboot required is " + mIsRebootRequired);
         if (mIsRebootRequired) {
             Utils.showRebootRequiredDialog(getContext());

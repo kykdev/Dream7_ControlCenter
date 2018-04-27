@@ -37,7 +37,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-        project.archivesBaseName = "RomControl"
+        project.archivesBaseName = "ControlCenter"
     }
 
     buildTypes {
@@ -54,6 +54,10 @@ android {
             }
         }
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 task installAndLaunchRelease(type: Exec, dependsOn: 'installRelease') {
@@ -61,7 +65,7 @@ task installAndLaunchRelease(type: Exec, dependsOn: 'installRelease') {
 }
 
 task pushToDevice(type: Exec, dependsOn: 'assembleRelease') {
-    commandLine 'adb', 'push', './build/outputs/apk/RomControl.apk', '/sdcard/RomControl.apk'
+    commandLine 'adb', 'push', './build/outputs/apk/ControlCenter.apk', '/sdcard/ControlCenter.apk'
 }
 
 task mountRW(type: Exec, dependsOn: 'pushToDevice') {
@@ -69,12 +73,12 @@ task mountRW(type: Exec, dependsOn: 'pushToDevice') {
 }
 
 task copyToPrivApp(type: Exec, dependsOn: 'mountRW') {
-    commandLine 'adb', 'shell', 'su', '-c', 'cp /storage/emulated/0/RomControl.apk /system/priv-app/RomControl.apk'
+    commandLine 'adb', 'shell', 'su', '-c', 'cp /storage/emulated/0/ControlCenter.apk /system/priv-app/ControlCenter.apk'
     finalizedBy('chmodApk')
 }
 
 task chmodApk(type: Exec) {
-    commandLine 'adb', 'shell', 'su', '-c', 'chmod 644 /system/priv-app/RomControl.apk'
+    commandLine 'adb', 'shell', 'su', '-c', 'chmod 644 /system/priv-app/ControlCenter.apk'
     finalizedBy('mountRO')
 }
 

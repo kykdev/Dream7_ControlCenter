@@ -41,7 +41,8 @@ public class MyPreferenceCategory extends PreferenceCategory {
         super.onAttachedToActivity();
         if (!TextUtils.isEmpty(mReverseDependencyKey)) {
             Preference preference = findPreferenceInHierarchy(mReverseDependencyKey);
-            if (preference != null && (preference instanceof MySwitchPreference || preference instanceof MyCheckBoxPreference)) {
+            if (preference != null &&
+                    (preference instanceof MySwitchPreference || preference instanceof MySecureSwitchPreference || preference instanceof MyCheckBoxPreference)) {
                 ReverseDependencyMonitor reverseDependencyMonitor = (ReverseDependencyMonitor) preference;
                 reverseDependencyMonitor.registerReverseDependencyPreference(this);
             }

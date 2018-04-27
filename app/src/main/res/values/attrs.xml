@@ -31,6 +31,11 @@
         <attr name="dependentValue" format="string"/>
         <attr name="reverseDependency" format="string"/>
     </declare-styleable>
+    <declare-styleable name="MySecureSeekBarPreference">
+        <attr name="minSecureValue" format="integer"/>
+        <attr name="maxSecureValue" format="integer" />
+        <attr name="unitsSecureValue" format="string"/>
+    </declare-styleable>
     <declare-styleable name="MySeekBarPreference">
         <attr name="minValue" format="integer"/>
         <attr name="maxValue" format="integer" />
